@@ -173,9 +173,6 @@ GROUP BY dept
 
 
 
-
-
-
 SELECT dept_name, COUNT(course_id) AS ders_sayisi
 FROM Course
 GROUP BY dept_name
@@ -186,4 +183,43 @@ HAVING COUNT(course_id) > (
 );
 
 
+CREATE DATABASE IF NOT EXISTS UniversityDB;
+USE UniversityDB;
 
+CREATE TABLE Department (
+    department_id INT PRIMARY KEY AUTO_INCREMENT,
+    department_name VARCHAR(100) NOT NULL UNIQUE,
+    head_name VARCHAR(100)
+);
+
+
+CREATE TABLE Cafeteria (
+    cafeteria_id INT PRIMARY KEY AUTO_INCREMENT,
+    cafeteria_name VARCHAR(100) NOT NULL,
+    location VARCHAR(100)
+);
+
+
+CREATE TABLE Student (
+    student_id INT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    enrollment_date DATE,
+    
+
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES Department(department_id)
+);
+
+
+INSERT INTO Department (department_name, head_name) VALUES 
+('Computer Engineering', 'Dr. Alex'),
+('Law', 'Prof. Mehmet Ozturk');
+
+INSERT INTO Cafeteria (cafeteria_name, location) VALUES 
+('Main Campus Cafeteria', 'Ground Floor, Main Building'),
+('Engineering Cafeteria', '3rd Floor, Engineering Building');
+
+INSERT INTO Student (student_id, first_name, last_name, enrollment_date, department_id) VALUES
+(101, 'Tedesco', 'Fatih', '2023-09-01', 1),
+(102, 'Eren', 'Elmalı', '2023-09-01', 2);
